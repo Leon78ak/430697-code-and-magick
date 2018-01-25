@@ -185,9 +185,6 @@
   var fireballSize = 22;
   var wizardSpeed = 3;
   var wizardWidth = 70;
-  var wizardHeight = 0;
-  var wizardX = 0;
-  var wizardY = 0;
 
   /**
    * получаем скорость файербола
@@ -203,8 +200,7 @@
    * @return {number}
    */
   var getWizardHeight = function () {
-    wizardHeight = 1.337 * wizardWidth;
-    return wizardHeight;
+    return (1.337 * wizardWidth);
   };
 
   /**
@@ -213,8 +209,7 @@
    * @return {number}
    */
   var getWizardX = function (width) {
-    wizardX = width / 2 - wizardWidth / 2;
-    return wizardX;
+    return (width / 2 - wizardWidth / 2);
   };
 
   /**
@@ -223,8 +218,8 @@
    * @return {number}
    */
   var getWizardY = function (height) {
-    wizardY = (height * 2 / 3) - wizardHeight;
-    return wizardY;
+    var wizardHeight = getWizardHeight();
+    return (height * 2 / 3 - wizardHeight);
   };
 </script>
 
