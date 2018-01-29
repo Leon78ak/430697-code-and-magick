@@ -70,6 +70,12 @@ var drawRect = function (ctx, arr, color) {
   ctx.fill();
 };
 
+/**
+ * отрисовывает окно статистики
+ * @param  {obj} ctx     canvas
+ * @param  {array} players массив с именами игроков
+ * @param  {array} times   массив времени прохождения игры
+ */
 window.renderStatistics = function (ctx, players, times) {
   drawRect(ctx, shadowPoints, 'rgba(0, 0, 0, 0.7)');
   drawRect(ctx, cloudPoints, 'rgba(256, 256, 256, 1.0)');
@@ -101,25 +107,28 @@ window.renderStatistics = function (ctx, players, times) {
   };
 
   var sortedTimes = times.slice(0);
-
   sortedTimes.sort(function (first, second) {
     return second - first;
   });
 
-  for (var i = 0; i < players.length; i++) {
-    var initialNewColumnX = initGistX + (BAR_OFFSET + BAR_WIDTH) * i;
-    var initialNewColumnY = initGistY - FONT_GAP;
-    var barHeight = sortedTimes[i] * GIST_HEIGHT / maxTime;
-    var initialTimesY = initialNewColumnY - GAP - barHeight;
+  var renderColumnGist = function (players, times) {
+    for (var i = 0; i < players.length; i++) {
+      var initialNewColumnX = initGistX + (BAR_OFFSET + BAR_WIDTH) * i;
+      var initialNewColumnY = initGistY - FONT_GAP;
+      var barHeight = times[i] * GIST_HEIGHT / maxTime;
+      var initialTimesY = initialNewColumnY - GAP - barHeight;
 
-    ctx.textAlign = 'left';
-    ctx.fillStyle = 'rgba(0, 0, 255, ' + getRandomInteger(1, 10) + ')';
-    if (players[i] === 'Вы') {
-      ctx.fillStyle = 'rgba(255, 0, 0, 1)';
+      ctx.textAlign = 'left';
+      ctx.fillStyle = 'rgba(0, 0, 255, ' + getRandomInteger(1, 10) + ')';
+      if (players[i] === 'Вы') {
+        ctx.fillStyle = 'rgba(255, 0, 0, 1)';
+      }
+      ctx.fillRect(initialNewColumnX, initialNewColumnY, BAR_WIDTH, -1 * barHeight);
+      ctx.fillStyle = '#000';
+      ctx.fillText(players[i], initialNewColumnX, initGistY);
+      ctx.fillText(Math.floor(times[i]), initialNewColumnX, initialTimesY);
     }
-    ctx.fillRect(initialNewColumnX, initialNewColumnY, BAR_WIDTH, -1 * barHeight);
-    ctx.fillStyle = '#000';
-    ctx.fillText(players[i], initialNewColumnX, initGistY);
-    ctx.fillText(Math.floor(times[i]), initialNewColumnX, initialTimesY);
-  }
+  };
+
+  renderColumnGist(players, sortedTimes);
 };
