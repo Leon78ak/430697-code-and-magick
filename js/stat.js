@@ -112,6 +112,7 @@ window.renderStatistics = function (ctx, players, times) {
   });
 
   var renderColumnGist = function (players, times) {
+
     for (var i = 0; i < players.length; i++) {
       var initialNewColumnX = initGistX + (BAR_OFFSET + BAR_WIDTH) * i;
       var initialNewColumnY = initGistY - FONT_GAP;
