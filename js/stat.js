@@ -111,7 +111,7 @@ window.renderStatistics = function (ctx, players, times) {
     return second - first;
   });
 
-  var renderColumnGist = function (players, times) {
+  var renderColumnGist = function () {
 
     for (var i = 0; i < players.length; i++) {
       var initialNewColumnX = initGistX + (BAR_OFFSET + BAR_WIDTH) * i;

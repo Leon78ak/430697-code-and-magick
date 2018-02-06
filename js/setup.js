@@ -1,4 +1,4 @@
-'use srict';
+'use strict';
 
 var WIZARD_NAMES = [
   'Иван',
@@ -49,8 +49,8 @@ var userDialog = document.querySelector('.setup');
 userDialog.classList.remove('hidden');
 
 /**
- * получает случайный элемент массива
- * @param  {array} array массив значений
+ * забирает из массива случайный элемент
+ * @param {array} array массив значений
  * @return
  */
 var getRandomElement = function (array) {
@@ -59,8 +59,8 @@ var getRandomElement = function (array) {
 };
 
 /**
- * получает случайный уникальный элемент массива
- * @param  {array} array массив значений
+ * забирает из массива случайный уникальный элемент
+ * @param {array} array массив значений
  * @return
  */
 var getUniqueELement = function (array) {
@@ -70,8 +70,7 @@ var getUniqueELement = function (array) {
 
 /**
  * создает массив объектов свойств для отрисовки волшебника
- * @param  {number} players количество игроков
- * @return
+ * @param {number} players количество игроков
  */
 var createWizards = function (players) {
   for (var i = 0; i < players; i++) {
@@ -91,10 +90,9 @@ var similarListElement = document.querySelector('.setup-similar-list');
 var similarWizardTemplate = document.querySelector('#similar-wizard-template').
     content.querySelector('.setup-similar-item');
 
-
 /**
  * создает элемент с похожим волшебником в шаблон
- * @param  {string} wizard свойства волшебника
+ * @param {string} wizard свойства волшебника
  * @return {Element}
  */
 var insertWizard = function (wizard) {
@@ -109,7 +107,7 @@ var insertWizard = function (wizard) {
 
 var fragment = document.createDocumentFragment();
 for (var i = 0; i < wizards.length; i++) {
-  fragment.appendChild(insertWizard (wizards[i]));
+  fragment.appendChild(insertWizard(wizards[i]));
 }
 similarListElement.appendChild(fragment);
 
