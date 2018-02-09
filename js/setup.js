@@ -148,11 +148,17 @@ userNameInput.addEventListener('invalid', function () {
 });
 
 /**
- * закрывает окно диалога
- * @param  {Object} evt объект событий
+ * обработчик закрытия окна диалога по ESC
+ * @param  {[type]} evt [description]
  */
 var onPopupEscPress = function (evt) {
+  debugger;
   if (evt.keyCode === ESC_KEYCODE) {
+    if (document.activeElement === userNameInput) {
+      evt.stopPropagation();
+
+      return;
+    }
     closePopup();
   }
 };
