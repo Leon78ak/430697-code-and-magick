@@ -106,17 +106,17 @@ window.renderStatistics = function (ctx, players, times) {
     return rand;
   };
 
-  var sortedTimes = times.slice(0);
-  sortedTimes.sort(function (first, second) {
+  var copiedTimes = times.slice(0);
+  copiedTimes.sort(function (first, second) {
     return second - first;
   });
 
-  var renderColumnGist = function (players, times) {
+  var renderColumnGist = function () {
 
     for (var i = 0; i < players.length; i++) {
       var initialNewColumnX = initGistX + (BAR_OFFSET + BAR_WIDTH) * i;
       var initialNewColumnY = initGistY - FONT_GAP;
-      var barHeight = times[i] * GIST_HEIGHT / maxTime;
+      var barHeight = copiedTimes[i] * GIST_HEIGHT / maxTime;
       var initialTimesY = initialNewColumnY - GAP - barHeight;
 
       ctx.textAlign = 'left';
@@ -127,9 +127,9 @@ window.renderStatistics = function (ctx, players, times) {
       ctx.fillRect(initialNewColumnX, initialNewColumnY, BAR_WIDTH, -1 * barHeight);
       ctx.fillStyle = '#000';
       ctx.fillText(players[i], initialNewColumnX, initGistY);
-      ctx.fillText(Math.floor(times[i]), initialNewColumnX, initialTimesY);
+      ctx.fillText(Math.floor(copiedTimes[i]), initialNewColumnX, initialTimesY);
     }
   };
 
-  renderColumnGist(players, sortedTimes);
+  renderColumnGist(players, copiedTimes);
 };
