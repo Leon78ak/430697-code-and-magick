@@ -52,7 +52,6 @@ var wizardSurnames = WIZARD_SURNAMES.slice(0);
 
 var setup = document.querySelector('.setup');
 
-
 /**
  * забирает из массива случайный элемент
  * @param {array} array массив значений
@@ -152,7 +151,6 @@ userNameInput.addEventListener('invalid', function () {
  * @param  {[type]} evt [description]
  */
 var onPopupEscPress = function (evt) {
-  debugger;
   if (evt.keyCode === ESC_KEYCODE) {
     if (document.activeElement === userNameInput) {
       evt.stopPropagation();
