@@ -119,7 +119,6 @@
     /**
      * обработчик событий при отпускании мыши
      * @param  {[type]} upEvt [description]
-     * @return {[type]}       [description]
      */
     var onMouseUp = function (upEvt) {
       upEvt.preventDefault();
@@ -128,7 +127,6 @@
       document.removeEventListener('mouseup', onMouseUp);
 
       if (dragged) {
-        debugger;
         var onClickPreventDefault = function (evt) {
           evt.preventDefault();
           dialogHandler.removeEventListener('click', onClickPreventDefault);

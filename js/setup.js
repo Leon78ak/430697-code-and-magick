@@ -61,7 +61,7 @@
   shop.addEventListener('dragstart', function (evt) {
     if (evt.target.tagName.toLowerCase() === 'img') {
       draggedItem = evt.target;
-      event.dataTransfer.effectAllowed = "copy";
+      event.dataTransfer.effectAllowed = 'copy';
       evt.dataTransfer.setData('text/plain', evt.target.alt);
     }
   });
