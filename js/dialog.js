@@ -15,7 +15,8 @@
   });
 
   /**
-   * обработчик закрытия окна диалога по ESC
+   * обработчик закрытия окна диалога по ESC,
+   * если поле заполнения имени персонажа в фокусе - отмена закрытия
    * @param  {[type]} evt [description]
    */
   var onPopupEscPress = function (evt) {
@@ -29,20 +30,33 @@
     }
   };
 
+  /**
+   * закрытие окна настроек по Enter, если
+   * фокус на крестике
+   * @param  {Object} evt [description]
+   */
   var onPopupEnterPress = function (evt) {
     if (evt.keyCode === window.constants.ENTER_KEYCODE) {
       closePopup();
     }
   };
 
+  /**
+   * показывает окно настроек
+   */
   var openPopup = function () {
     setup.classList.remove('hidden');
     document.addEventListener('keydown', onPopupEscPress);
   };
 
+  /**
+   * закрывает окно настроек,
+   * делает сброс в начальную позицию окна
+   */
   var closePopup = function () {
     setup.classList.add('hidden');
     document.addEventListener('keydown', onPopupEscPress);
+    window.util.resetPosition(setup);
   };
 
   setupOpen.addEventListener('click', function () {
@@ -64,5 +78,67 @@
   window.colorize(wizardCoat, window.constants.WIZARD_COAT_COLORS);
   window.colorize(wizardEyes, window.constants.WIZARD_EYES_COLORS);
   window.colorize(fireballWrap, window.constants.FIREBALL_COLORS);
+
+
+  //  module5-task2
+  var setupDialogElement = document.querySelector('.setup');
+  var dialogHandler = setupDialogElement.querySelector('.upload');
+
+  dialogHandler.addEventListener('mousedown', function (evt) {
+    evt.preventDefault();
+
+    var startCoords = {
+      x: evt.clientX,
+      y: evt.clientY
+    };
+
+    var dragged = false;
+
+    /**
+     * обработчик событий при движении мыши
+     * @param  {Object} moveEvt
+     */
+    var onMouseMove = function (moveEvt) {
+      moveEvt.preventDefault();
+      dragged = true;
+
+      var shift = {
+        x: startCoords.x - moveEvt.clientX,
+        y: startCoords.y - moveEvt.clientY
+      };
+
+      startCoords = {
+        x: moveEvt.clientX,
+        y: moveEvt.clientY
+      };
+
+      setup.style.top = (setup.offsetTop - shift.y) + 'px';
+      setup.style.left = (setup.offsetLeft - shift.x) + 'px';
+    };
+
+    /**
+     * обработчик событий при отпускании мыши
+     * @param  {[type]} upEvt [description]
+     * @return {[type]}       [description]
+     */
+    var onMouseUp = function (upEvt) {
+      upEvt.preventDefault();
+
+      document.removeEventListener('mousemove', onMouseMove);
+      document.removeEventListener('mouseup', onMouseUp);
+
+      if (dragged) {
+        debugger;
+        var onClickPreventDefault = function (evt) {
+          evt.preventDefault();
+          dialogHandler.removeEventListener('click', onClickPreventDefault);
+        };
+        dialogHandler.addEventListener('click', onClickPreventDefault);
+      }
+    };
+
+    document.addEventListener('mousemove', onMouseMove);
+    document.addEventListener('mouseup', onMouseUp);
+  });
 
 })();
