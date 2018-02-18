@@ -7,10 +7,11 @@
    * @param  {array} color массив цветовых значений
    */
   window.colorize = function (elem, color) {
-    elem.addEventListener('click', function () {
+    elem.addEventListener('click', function (evt) {
       var elementColor = window.util.getRandomElement(color);
-      this.style.backgroundColor = elementColor;
-      this.style.fill = elementColor;
+      evt.target.style.backgroundColor = elementColor;
+      evt.target.style.fill = elementColor;
     });
-  }
+  };
 })();
+

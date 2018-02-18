@@ -46,6 +46,14 @@
       } else {
         input.setCustomValidity('');
       }
+    },
+    /**
+     * сброс координат элемента в начальное состояние
+     * @param  {Element} elem элемент
+     */
+    resetPosition: function (elem) {
+      elem.style.left = '';
+      elem.style.top = '';
     }
   };
 })();
