@@ -66,7 +66,7 @@
     node.textContent = errorMessage;
     document.body.insertAdjacentElement('afterbegin', node);
   };
-  debugger;
+
   window.backend.load(successHandler, errorHandler);
 
   // перетаскивание элементов
@@ -74,72 +74,60 @@
   var boxItem = setup.querySelector('.setup-artifacts');
   var draggedItem = null;
 
-  shop.addEventListener('dragstart', function (evt) {
+  /**
+   * обработчик событий при старте перетаскивания
+   * @param  {Object} evt объект событий
+   */
+  var onDragStart = function (evt) {
     if (evt.target.tagName.toLowerCase() === 'img') {
       draggedItem = evt.target;
       event.dataTransfer.effectAllowed = 'copy';
       evt.dataTransfer.setData('text/plain', evt.target.alt);
     }
-  });
+  };
 
-  boxItem.addEventListener('dragover', function (evt) {
+  /**
+   * обработчик событий при старте перетаскивания
+   * @param  {Object} evt объект событий
+   */
+  var onDragOver = function (evt) {
     evt.preventDefault();
     return false;
-  });
+  };
 
-  boxItem.addEventListener('drop', function (evt) {
-    evt.target.classList.remove('over');
-    if (draggedItem !== evt.target) {
-      evt.target.appendChild(draggedItem.cloneNode(true));
-    }
-    evt.preventDefault();
-  });
-
-  boxItem.addEventListener('dragenter', function (evt) {
+  /**
+   * обработчик событий при входе в зону броска
+   * @param  {Object} evt объект событий
+   */
+  var onDragEnter = function (evt) {
     evt.target.classList.add('over');
-    evt.preventDefault();
-  });
+      evt.preventDefault();
+  };
 
-  boxItem.addEventListener('dragleave', function (evt) {
+  /**
+   * обработчик событий при оставлении зоны броска
+   * @param  {Object} evt объект событий
+   */
+  var onDragLeave = function (evt) {
     evt.target.classList.remove('over');
     evt.preventDefault();
-  });
+  };
 
-//   var shopElement = document.querySelector('.setup-artifacts-shop');
-// var artifactsElement = document.querySelector('.setup-artifacts');
-// var draggedItem = null;
+  /**
+   * обработчик событий при броске
+   * @param  {Object} evt объект событий
+   */
+  var onDrop = function (evt) {
+    evt.target.classList.remove('over');
+      if (draggedItem !== evt.target) {
+        evt.target.appendChild(draggedItem.cloneNode(true));
+      }
+    evt.preventDefault();
+  };
 
-// var handleDragStart = function (evt) {
-//   if (evt.target.tagName.toLowerCase() === 'img') {
-//     draggedItem = evt.target;
-//     evt.dataTransfer.setData('text/plain', evt.target.alt);
-//   }
-// };
-
-// var handleDragOver = function (evt) {
-//   evt.preventDefault();
-//   return false;
-// };
-
-// var handleDragEnter = function (evt) {
-//   evt.target.classList.add('over');
-//   evt.preventDefault();
-// };
-
-// var handleDragLeave = function (evt) {
-//   evt.target.classList.remove('over');
-//   evt.preventDefault();
-// };
-
-// var handleDrop = function (evt) {
-//   evt.target.classList.remove('over');
-//   evt.target.appendChild(draggedItem);
-//   evt.preventDefault();
-// };
-
-// shopElement.addEventListener('dragstart', handleDragStart);
-// artifactsElement.addEventListener('dragenter', handleDragEnter);
-// artifactsElement.addEventListener('dragover', handleDragOver);
-// artifactsElement.addEventListener('dragleave', handleDragLeave);
-// artifactsElement.addEventListener('drop', handleDrop);
+  shop.addEventListener('dragstart', onDragStart);
+  boxItem.addEventListener('dragenter', onDragEnter);
+  boxItem.addEventListener('dragover', onDragOver);
+  boxItem.addEventListener('dragleave', onDragLeave);
+  boxItem.addEventListener('drop', onDrop);
 })();

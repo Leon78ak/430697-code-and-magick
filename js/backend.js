@@ -10,7 +10,7 @@
   };
 
   var SERVER_URL = 'https://js.dump.academy/code-and-magick';
-  var SERVER_UPLOAD_URL = 'https://js.dump.academy/code-and-magick/dat';
+  var SERVER_UPLOAD_URL = 'https://js.dump.academy/code-and-magick/data';
   var TIMEOUT = 10000;
 
   window.backend = {
