@@ -8,27 +8,27 @@
   var similarWizardTemplate = document.querySelector('#similar-wizard-template').
       content.querySelector('.setup-similar-item');
 
-  /**
-   * создает массив объектов - волшебников
-   * @param  {array} wizardsNames      массив имен волшебников
-   * @param  {array} wizardsSurnames   массив фамилий волшебников
-   * @param  {array} wizardsCoatColors массив цветов глаз волшебников
-   * @param  {array} wizardsEyesColors массив цветов одежды волшебников
-   * @return {array.<Object>}          массив готовых объектов
-   */
-  var createWizards = function (wizardsNames, wizardsSurnames, wizardsCoatColors, wizardsEyesColors) {
-    var wizards = [];
-    for (var i = 0; i < wizardsNames.length; i++) {
-      wizards[i] = {
-        name: (window.util.getUniqueELement(wizardsNames) + ' ' + window.util.getUniqueELement(wizardsSurnames)),
-        colorCoat: window.util.getRandomElement(wizardsCoatColors),
-        colorEyes: window.util.getRandomElement(wizardsEyesColors)
-      };
-    }
-    return wizards;
-  };
+  // /**
+  //  * создает массив объектов - волшебников
+  //  * @param  {array} wizardsNames      массив имен волшебников
+  //  * @param  {array} wizardsSurnames   массив фамилий волшебников
+  //  * @param  {array} wizardsCoatColors массив цветов глаз волшебников
+  //  * @param  {array} wizardsEyesColors массив цветов одежды волшебников
+  //  * @return {array.<Object>}          массив готовых объектов
+  //  */
+  // var createWizards = function (wizardsNames, wizardsSurnames, wizardsCoatColors, wizardsEyesColors) {
+  //   var wizards = [];
+  //   for (var i = 0; i < wizardsNames.length; i++) {
+  //     wizards[i] = {
+  //       name: (window.util.getUniqueELement(wizardsNames) + ' ' + window.util.getUniqueELement(wizardsSurnames)),
+  //       colorCoat: window.util.getRandomElement(wizardsCoatColors),
+  //       colorEyes: window.util.getRandomElement(wizardsEyesColors)
+  //     };
+  //   }
+  //   return wizards;
+  // };
 
-  var wizards = createWizards(wizardNames, wizardSurnames, window.constants.WIZARD_COAT_COLORS, window.constants.WIZARD_EYES_COLORS);
+  // var wizards = createWizards(wizardNames, wizardSurnames, window.constants.WIZARD_COAT_COLORS, window.constants.WIZARD_EYES_COLORS);
 
   document.querySelector('.setup-similar').classList.remove('hidden');
 
@@ -47,7 +47,7 @@
     return wizardElement;
   };
 
-  var onSuccess = function (wizards) {
+  var successHandler = function (wizards) {
     var fragment = document.createDocumentFragment();
     for (var i = 0; i < window.constants.wizardsNumb; i++) {
       fragment.appendChild(insertWizard(wizards[i]));
@@ -55,7 +55,7 @@
     similarListElement.appendChild(fragment);
   };
 
-  var onError = function (errorMessage) {
+  var errorHandler = function (errorMessage) {
     var node = document.createElement('div');
     node.style = 'z-index: 100; margin: 0 auto; text-align: center; background-color: red;';
     node.style.position = 'absolute';
@@ -66,8 +66,8 @@
     node.textContent = errorMessage;
     document.body.insertAdjacentElement('afterbegin', node);
   };
-
-  window.backend.load(onSuccess, onError);
+  debugger;
+  window.backend.load(successHandler, errorHandler);
 
   // перетаскивание элементов
   var shop = setup.querySelector('.setup-artifacts-shop');
