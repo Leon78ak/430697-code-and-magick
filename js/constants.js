@@ -3,6 +3,7 @@
 (function () {
 
   window.constants = {
+    wizardsNumb: 4,
     WIZARD_NAMES: [
       'Иван',
       'Хуан Себастьян',

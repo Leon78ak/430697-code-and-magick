@@ -73,16 +73,25 @@
     closePopup();
   });
 
+  var form = setup.querySelector('.setup-wizard-form');
+  var onSubmit = function (evt) {
+    window.backend.save(new FormData(form), function (response) {
+      closePopup();
+    });
+    evt.preventDefault();
+  };
+  form.addEventListener('submit', onSubmit);
+  // form.removeEventListener('submit', onSubmit);
+
   setupClose.addEventListener('keydown', onPopupEnterPress);
+  setupClose.removeEventListener('keydown', onPopupEnterPress);
 
   window.colorize(wizardCoat, window.constants.WIZARD_COAT_COLORS);
   window.colorize(wizardEyes, window.constants.WIZARD_EYES_COLORS);
   window.colorize(fireballWrap, window.constants.FIREBALL_COLORS);
 
-
   //  module5-task2
-  var setupDialogElement = document.querySelector('.setup');
-  var dialogHandler = setupDialogElement.querySelector('.upload');
+  var dialogHandler = setup.querySelector('.upload');
 
   dialogHandler.addEventListener('mousedown', function (evt) {
     evt.preventDefault();
